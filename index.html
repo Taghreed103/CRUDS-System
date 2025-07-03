@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/main.css">
+
+</head>
+
+<body>
+
+<div  id="layer" class="Layer  position-fixed  
+ top-0 bottom-0  bg-opacity-50 
+ start-0  end-0  bg-dark  
+ d-none justify-content-center 
+  align-items-center ">
+    <div class="  bg-white  rounded  p-4">
+        <h2>Do  you  sure? </h2>
+        <div class="d-flex   justify-content-between">
+             <button onclick="deleteProduct()"      class="btn btn-outline-primary  rounded "    >yes</button>
+             <button onclick="hideLayer()"    class="btn btn-outline-info   rounded" >No</button>
+        </div>
+      
+    </div>
+    </div>
+
+
+
+  <div class="container">
+    <!-- !DOM -->
+    <div  class="my-5">
+      <h2  class="mb-3">Product Form </h2>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="productName" placeholder=" ">
+        <label for="productName">productName</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="number" class="form-control" id="productPrice" placeholder="ex.Oppo">
+        <label for="productPrice">productPrice</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input list="categoryList" type="text" class="form-control" id="productCategory" placeholder="ex.Oppo">
+        <label for="productCategory">productCategory</label>
+
+
+        <datalist id="categoryList">
+          <option >TV</option>
+          <option >Screens</option>
+          <option >Mobile</option>
+        </datalist>
+      </div>
+
+      <div class="form-floating mb-3">
+        <textarea type="text" class="form-control" id="productDesc" placeholder="ex.Oppo"></textarea>
+        <label for="productDesc">productDesc</label>
+      </div>
+
+      <div class=" mb-3">
+        <!-- upload imgs || local -->
+        <label for="productImage">productImage</label>
+        <input type="file" accept="image*/" class="form-control" id="productImage" placeholder="ex.Oppo">
+      </div>
+
+      <button id="addbtn" onclick="addProduct()"  class="btn btn-outline-info  ">Add New Product</button>
+       <button id="updatebtn" onclick="update()"  class="btn btn-outline-info  d-none">Update</button>
+
+    </div>
+  </div>
+
+  <div class="container  mb-3">
+
+    <div class="row"   id="productsRow">
+
+    </div>
+  </div>
+
+ 
+
+  <!--  -->
+  <script src="./js/main.js"></script>
+</body>
+
+</html>
