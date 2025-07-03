@@ -19,29 +19,65 @@ var productKey= "productKey";
     plist=[]
   }
 //add
-function   addProduct(     ) {
+// function   addProduct(     ) {
     
-    var product={
-    name: pName.value,
-    price:pPrice.value,
-    category: pCategory.value,
-    desc: pDesc.value,
-   img :"./image/" + pImg.files[0].name 
-// pImg.files[0].name   this  is  the  dynamic name of each img
+//     var product={
+//     name: pName.value,
+//     price:pPrice.value,
+//     category: pCategory.value,
+//     desc: pDesc.value,
+//     img : ""
+//   //  img :         "./image/" + pImg.files[0].name 
+// // pImg.files[0].name   this  is  the  dynamic name of each img
+    
+//     }
 
+//   console.log(product);
+// plist.push(product);
+// //1   local  storage
+// localStorage.setItem("productKey", JSON.stringify(plist));
+// //2   display   uuuuser  add
+// displayList(plist);
+
+// clearInputs();
+
+
+// };
+
+
+function addProduct() {
+    var product = {
+        name: pName.value,
+        price: pPrice.value,
+        category: pCategory.value,
+        desc: pDesc.value,
+        img: "" // هنعملها بعد شوية
+    };
+
+    if (pImg.files && pImg.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            product.img = e.target.result;
+            plist.push(product);
+            localStorage.setItem(productKey, JSON.stringify(plist));
+            displayList(plist);
+            clearInputs();
+        };
+        reader.readAsDataURL(pImg.files[0]);
+    } else {
+        // لو مفيش صورة، استخدم صورة افتراضية
+        product.img = "./image/default.jpg";
+        plist.push(product);
+        localStorage.setItem(productKey, JSON.stringify(plist));
+        displayList(plist);
+        clearInputs();
     }
-  
-  console.log(product);
-plist.push(product);
-//1   local  storage
-localStorage.setItem("productKey", JSON.stringify(plist));
-//2   display   uuuuser  add
-displayList(plist);
-
-clearInputs();
+}
 
 
-};
+
+
+
 //clear
 function clearInputs() {
   pName.value = '';
@@ -123,30 +159,64 @@ var  globalUpdatedItemIndex;
 
 //globalUpdatedItemIndex  شايل رقم العنصر الي اتعمله ابديت وعشان الكود في html
 //  فيه الابديت فانكشن في الزرار مش هعرف اخليها  تستقبل (index )
-function  update(){
-plist[globalUpdatedItemIndex].name=pName.value;
-plist[globalUpdatedItemIndex].price=pPrice.value;
-plist[globalUpdatedItemIndex].category=pCategory.value;
-plist[globalUpdatedItemIndex].desc=pDesc.value;
+// function  update(){
+// plist[globalUpdatedItemIndex].name=pName.value;
+// plist[globalUpdatedItemIndex].price=pPrice.value;
+// plist[globalUpdatedItemIndex].category=pCategory.value;
+// plist[globalUpdatedItemIndex].desc=pDesc.value;
 
 
-displayList(plist);
-localStorage.setItem("productKey", JSON.stringify(plist));
+// displayList(plist);
+// localStorage.setItem("productKey", JSON.stringify(plist));
  
 
 
-clearInputs();
+// clearInputs();
 
-       addbtn.classList.remove("d-none");
+//        addbtn.classList.remove("d-none");
+//         updatebtn.classList.add("d-none");
+
+
+
+//    window.scroll({
+//     behavior: "smooth",
+//     top: document.body.scrollHeight,
+
+//   });
+
+
+// }
+
+function update() {
+    plist[globalUpdatedItemIndex].name = pName.value;
+    plist[globalUpdatedItemIndex].price = pPrice.value;
+    plist[globalUpdatedItemIndex].category = pCategory.value;
+    plist[globalUpdatedItemIndex].desc = pDesc.value;
+
+    if (pImg.files && pImg.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            plist[globalUpdatedItemIndex].img = e.target.result;
+            localStorage.setItem(productKey, JSON.stringify(plist));
+            displayList(plist);
+            clearInputs();
+            addbtn.classList.remove("d-none");
+            updatebtn.classList.add("d-none");
+            window.scroll({
+                behavior: "smooth",
+                top: document.body.scrollHeight,
+            });
+        };
+        reader.readAsDataURL(pImg.files[0]);
+    } else {
+        localStorage.setItem(productKey, JSON.stringify(plist));
+        displayList(plist);
+        clearInputs();
+        addbtn.classList.remove("d-none");
         updatebtn.classList.add("d-none");
-
-
-
-   window.scroll({
-    behavior: "smooth",
-    top: document.body.scrollHeight,
-
-  });
-
-
+        window.scroll({
+            behavior: "smooth",
+            top: document.body.scrollHeight,
+        });
+    }
 }
